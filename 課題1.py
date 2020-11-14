@@ -25,35 +25,35 @@ def set_driver(driver_path,headless_flg):
 def main():
     search_keyword="高収入"
     # driverを起動
-    driver = set_driver("chromedriver", False)
-    # Webサイトを開く(NG)
-    # driver.get("https://tenshoku.mynavi.jp/")
-    driver.get("https://tenshoku.mynavi.jp/list/kw%E5%AF%8C%E5%A3%AB%E9%80%9A/?jobsearchType=14&searchType=18")
+    driver=set_driver("chromedriver", False)
+    # Webサイトを開く
+    driver.get("https://tenshoku.mynavi.jp/")
     time.sleep(5)
-
     # ポップアップを閉じる
     driver.execute_script('document.querySelector(".karte-close").click()')
     time.sleep(2)
-    # ポップアップを閉じる(NG)
-    # driver.execute_script('document.querySelector(".karte-close").click()')
-
-    # 検索窓に入力(NG)
-    # driver.find_element_by_class_name("topSearch__text").send_keys(search_keyword)
-    # 検索ボタンクリック(NG)
-    # driver.find_element_by_class_name("topSearch__button").click()
+    # ポップアップを閉じる
+    driver.execute_script('document.querySelector(".karte-close").click()')
+    
+    # 検索窓に入力
+    driver.find_element_by_class_name("topSearch__text").send_keys(search_keyword)
+    # 検索ボタンクリック
+    driver.find_element_by_class_name("topSearch__button").click()
+    
 
     # 検索結果の一番上の会社名を取得
     name_list=driver.find_elements_by_class_name("cassetteRecruit__name")
-    salary_list=driver.find_elements_by_class_name("tableCondition__body")
     copy_list=driver.find_elements_by_class_name("cassetteRecruit__copy")
     status_list=driver.find_elements_by_class_name("labelEmploymentStatus")
-        # 1ページ分繰り返し
-    print("{},{},{}".format(len(copy_list),len(status_list),len(name_list), len(salary_list)))
-    for name,copy,status,salary in zip(name_list,copy_list,status_list, salary_list):
+    salary_list=driver.find_elements_by_class_name("tableCondition__body")
+    # 1ページ分繰り返し
+    print("{},{},{}".format(len(copy_list),len(status_list),len(name_list),len(salary_list)))
+    for name,copy,status,salary in zip(name_list,copy_list,status_list,salary_list):
         print(name.text)
         print(copy.text)
         print(status.text)
         print(salary.text)
+
 
 ## 直接起動された場合はmain()を起動(モジュールとして呼び出された場合は起動しないようにするため)
 if __name__ == "__main__":
