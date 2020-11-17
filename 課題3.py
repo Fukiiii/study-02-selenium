@@ -71,7 +71,7 @@ def main():
     salary_list=driver.find_elements_by_class_name("tableCondition__body")
     container_list=driver.find_elements_by_class_name("container__inner")
 
-    # 1ページ分繰り返し
+    # 2ページ分繰り返し
     print("{},{},{}".format(len(copy_list),len(status_list),len(name_list),len(salary_list), len(container_list)))
     for name,copy,status,salary,container in zip(name_list,copy_list,status_list,salary_list,container_list):
         print(name.text)
