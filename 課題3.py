@@ -41,12 +41,7 @@ def main():
     driver.find_element_by_class_name("topSearch__text").send_keys(search_keyword)
     # 検索ボタンクリック
     driver.find_element_by_class_name("topSearch__button").click()
-    #次ページボタンをクリック
-    icon = driver.find_element_by_class_name("iconFont--arrowLeft")
-    #次ページを開く
-    driver.get(icon.get_attribute("href"))
     
-
     # 検索結果の一番上の会社名を取得
     name_list=driver.find_elements_by_class_name("cassetteRecruit__name")
     copy_list=driver.find_elements_by_class_name("cassetteRecruit__copy")
@@ -63,6 +58,27 @@ def main():
         print(salary.text)
         print(container.text)
 
+    #次ページボタンをクリック
+    icon = driver.find_element_by_class_name("iconFont--arrowLeft")
+    #次ページを開く
+    driver.get(icon.get_attribute("href"))
+    time.sleep(5)
+
+    # 検索結果の一番上の会社名を取得
+    name_list=driver.find_elements_by_class_name("cassetteRecruit__name")
+    copy_list=driver.find_elements_by_class_name("cassetteRecruit__copy")
+    status_list=driver.find_elements_by_class_name("labelEmploymentStatus")
+    salary_list=driver.find_elements_by_class_name("tableCondition__body")
+    container_list=driver.find_elements_by_class_name("container__inner")
+
+    # 1ページ分繰り返し
+    print("{},{},{}".format(len(copy_list),len(status_list),len(name_list),len(salary_list), len(container_list)))
+    for name,copy,status,salary,container in zip(name_list,copy_list,status_list,salary_list,container_list):
+        print(name.text)
+        print(copy.text)
+        print(status.text)
+        print(salary.text)
+        print(container.text)
 
 ## 直接起動された場合はmain()を起動(モジュールとして呼び出された場合は起動しないようにするため)
 if __name__ == "__main__":
