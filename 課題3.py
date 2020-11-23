@@ -1,7 +1,7 @@
 import os
 from selenium.webdriver import Chrome, ChromeOptions
 import time
-import pandas as pd
+# import pandas as pd
 
 # Chromeを起動する関数
 def set_driver(driver_path, headless_flg):
@@ -24,8 +24,6 @@ def set_driver(driver_path, headless_flg):
     return Chrome(executable_path=os.getcwd() + "/" + driver_path, options=options)
 
 # main処理
-
-
 def main():
     search_keyword = "高収入"
     # driverを起動
@@ -55,9 +53,16 @@ def main():
   # ここに情報取得処理を書く
   # 検索結果の一番上の会社名を取得
         name_list=driver.find_elements_by_class_name("cassetteRecruit__name")
+        title_list = driver.find_elements_by_class_name("cassetteRecruit__copy")
+        label_list = driver.find_elements_by_class_name("cassetteRecruit__attribute")
 
-        for name in name_list:
+        # for name in name_list:
+        #     print(name.text)
+
+        for name, title, label in zip(name_list, title_list, label_list):
             print(name.text)
+            print(title.text)
+            print(label.text)
 
   # ここにページ切り替え処理を書く
         try:
@@ -68,25 +73,10 @@ def main():
         except:
             break
 
-    # 一番上の会社名を取得
-    # name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
-
-    # タイトルを取得
-    # title_list = driver.find_elements_by_class_name("cassetteRecruit__copy")
-
-    # ラベルを取得
-    # label_list = driver.find_elements_by_class_name("cassetteRecruit__attribute")
-
     # 1ページ分繰り返し
     print(len(name_list))
     for name in name_list:
         print(name.text)
-
-    # print(len(name_list))
-    # for name, title, label in zip(name_list, title_list, label_list):
-    #     print(name.text)
-    #     print(title.text)
-    #     print(label.text)
 
 # 直接起動された場合はmain()を起動(モジュールとして呼び出された場合は起動しないようにするため)
 if __name__ == "__main__":
